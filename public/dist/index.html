@@ -1,41 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simple Clock</title>
-    <style>
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f0f0f0;
-        font-family: Arial, sans-serif;
-      }
-      .clock {
-        font-size: 3rem;
-        font-weight: bold;
-        color: #333;
-      }
-    </style>
+    <title>Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index-CUuSyzbO.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cvq21h_q.css">
   </head>
   <body>
-    <div class="clock" id="clock"></div>
-
-    <script>
-      function updateClock() {
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, "0");
-        const minutes = String(now.getMinutes()).padStart(2, "0");
-        const seconds = String(now.getSeconds()).padStart(2, "0");
-        const timeString = `${hours}:${minutes}:${seconds}`;
-        document.getElementById("clock").textContent = timeString;
-      }
-
-      setInterval(updateClock, 1000);
-      updateClock(); // Initial call to set the time immediately
-    </script>
+    <div id="root"></div>
   </body>
 </html>
