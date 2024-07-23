@@ -22,7 +22,7 @@ const pool = new Pool({
 });
 
 // Endpoint for handling contact form data
-app.post("/contact", async (req, res) => {
+app.post("/api/contact", async (req, res) => {
   const { name, email, message } = req.body;
   try {
     const result = await pool.query(
@@ -37,17 +37,17 @@ app.post("/contact", async (req, res) => {
 });
 
 // Endpoint for downloading resume
-app.get("/download-resume", (req, res) => {
+app.get("/api/download-resume", (req, res) => {
   const file = path.resolve(__dirname, "./assets/Aaditya_nema.pdf");
   res.download(file);
 });
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, "build")));
+app.use("/", express.static(path.join(__dirname, "public", "dist")));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "build", "index.html"));
-// });
+app.get("/api", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "dist/index.html"));
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
