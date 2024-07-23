@@ -41,6 +41,8 @@ app.get("/download-resume", (req, res) => {
   res.download(file);
 });
 
+app.use(express.static(path.join(__dirname, public, "build")));
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
