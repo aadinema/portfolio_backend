@@ -8,7 +8,12 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+// Allow CORS requests from your frontend domain
+app.use(cors({
+  origin: 'https://portfolio-frontend-swart-eta.vercel.app/' 
+  
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -38,17 +43,19 @@ app.post("/api/contact", async (req, res) => {
 
 // Endpoint for downloading resume
 app.get("/api/download-resume", (req, res) => {
-  const file = path.resolve(__dirname, "./assets/Aaditya_nema.pdf");
+  const file = path.resolve(__dirname, "./public/Aaditya_nema.pdf");
   res.download(file);
 });
 
 // Serve static files from the React app
-// app.use("/", express.static(path.join(__dirname, "public", "dist")));
+app.use(express.static(path.join(__dirname, "public", "dist")));
 
-app.get("/api", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "dist/index.html"));
+// Catch-all handler to serve the React app for any route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "dist", "index.html"));
 });
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
