@@ -54,7 +54,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Catch-all handler to serve the React app
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+  res.sendFile(path.resolve(__dirname, "public", "dist","index.html"));
 });
 
 // Error handling middleware
