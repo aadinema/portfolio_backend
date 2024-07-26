@@ -45,7 +45,7 @@ app.get("/api/download-resume", (req, res) => {
 });
 
 // Serve static files from the React app
-// app.use(express.static(path.join(__dirname, "public", "dist")));
+app.use(express.static(path.join(__dirname, "public", )));
 
 // Catch-all handler to serve the React app for any route
 // app.get("*", (req, res) => {
