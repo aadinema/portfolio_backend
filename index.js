@@ -40,7 +40,7 @@ app.post("/api/contact", async (req, res) => {
 
 // Endpoint for downloading resume
 app.get("/api/download-resume", (req, res) => {
-  const file = path.resolve(__dirname, "./public/Aaditya_nema.pdf");
+  const file = path.resolve(__dirname, "./public/Aaditya_Nema__Resume.pdf");
   res.download(file);
 });
 
