@@ -3,16 +3,16 @@ const cors = require("cors");
 const { Pool } = require("pg");
 const path = require("path");
 require("dotenv").config();
-const helmet = require("helmet");
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
+// Allow CORS requests from your frontend domain
 app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(helmet()); // Add security headers
 
 // PostgreSQL pool setup
 const pool = new Pool({
@@ -33,34 +33,23 @@ app.post("/api/contact", async (req, res) => {
     );
     res.status(200).json(result.rows[0]);
   } catch (error) {
-    console.error("Database query error:", error.message);
-    res.status(500).json({ error: "An error occurred while processing your request." });
+    console.error(error.message);
+    res.status(500).json({ error: error.message });
   }
 });
 
 // Endpoint for downloading resume
 app.get("/api/download-resume", (req, res) => {
-  const filePath = path.resolve(__dirname, "public", "Aaditya_nema.pdf");
-  res.download(filePath, err => {
-    if (err) {
-      console.error("File download error:", err.message);
-      res.status(500).json({ error: "Failed to download the file." });
-    }
-  });
+  const file = path.resolve(__dirname, "./public/Aaditya_nema.pdf");
+  res.download(file);
 });
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public", "dist")));
 
-// Catch-all handler to serve the React app
+// Catch-all handler to serve the React app for any route
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "public", "dist","index.html"));
-});
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error("Server error:", err.stack);
-  res.status(500).send("Something went wrong!");
+  res.sendFile(path.join(__dirname, "public", "dist", "index.html"));
 });
 
 // Start the server
